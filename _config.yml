@@ -3,7 +3,12 @@ description: La ilaha illa Allah. The Logical Restoration of Divine Oneness.
 theme: jekyll-theme-minimal
 remote_theme: pages-themes/minimal
 
-# This helps organize your entries
+# IMPORTANT: Add these two lines
+url: "https://tawhidi-suleyman.github.io"
+baseurl: "/Al-Tawhidiyya"
+
+permalink: /:categories/:title/
+
 collections:
   foundations:
     output: true
@@ -11,4 +16,3 @@ collections:
     output: true
   refutations:
     output: true
-permalink: /:categories/:title/
