@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "The Abrogation Trap: Internal Inconsistency"
-categories: shield
+date: 2026-03-12
+categories: refutation
 tags: [Abrogation, Logic, Refutation, Traditionalism]
 ---
 
