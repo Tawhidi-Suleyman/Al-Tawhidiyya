@@ -3,25 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    {% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}
-  </title>
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 }}" />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
-
   {% seo %}
   {% feed_meta %}
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════
-       SIDEBAR / NAVIGATION
+       SIDEBAR
   ════════════════════════════════════════════ -->
   <nav class="sidebar" role="navigation" aria-label="Primary navigation">
 
@@ -31,6 +27,19 @@
         <span class="site-title">At-Tawahidiyya</span>
       </a>
       <p class="site-tagline">{{ site.description }}</p>
+    </div>
+
+    <!-- ── SEARCH ── -->
+    <div class="search-container">
+      <span class="search-icon">⌕</span>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search writings…"
+        autocomplete="off"
+        aria-label="Search"
+      />
+      <ul id="search-results"></ul>
     </div>
 
     <hr class="gold-rule" />
@@ -67,23 +76,15 @@
 
     <hr class="gold-rule" />
 
-    <!-- Tag Cloud (aggregated via Liquid) -->
+    <!-- Sidebar tag cloud -->
     <div class="nav-section">
       <span class="nav-label">Topics</span>
       <div class="tag-cloud-sidebar">
         {% assign all_tags = "" | split: "" %}
-        {% for post in site.posts %}
-          {% assign all_tags = all_tags | concat: post.tags %}
-        {% endfor %}
-        {% for doc in site.foundations %}
-          {% assign all_tags = all_tags | concat: doc.tags %}
-        {% endfor %}
-        {% for doc in site.tafsir %}
-          {% assign all_tags = all_tags | concat: doc.tags %}
-        {% endfor %}
-        {% for doc in site.refutations %}
-          {% assign all_tags = all_tags | concat: doc.tags %}
-        {% endfor %}
+        {% for post in site.posts %}{% assign all_tags = all_tags | concat: post.tags %}{% endfor %}
+        {% for doc in site.foundations %}{% assign all_tags = all_tags | concat: doc.tags %}{% endfor %}
+        {% for doc in site.tafsir %}{% assign all_tags = all_tags | concat: doc.tags %}{% endfor %}
+        {% for doc in site.refutations %}{% assign all_tags = all_tags | concat: doc.tags %}{% endfor %}
         {% assign all_tags = all_tags | uniq | sort %}
         {% for tag in all_tags %}
           <a href="{{ '/tags/' | append: tag | downcase | replace: ' ', '-' | relative_url }}" class="tag-pill">{{ tag }}</a>
@@ -97,7 +98,6 @@
        MAIN CONTENT
   ════════════════════════════════════════════ -->
   <main class="main-content" role="main">
-
     <div class="content-wrapper">
       {{ content }}
     </div>
@@ -112,8 +112,29 @@
         <a href="{{ '/' | relative_url }}">Return to the Index</a>
       </p>
     </footer>
-
   </main>
+
+  <!-- ── Simple-Jekyll-Search ── -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '{{ "/search.json" | relative_url }}',
+      searchResultTemplate: '<li><a href="{url}"><strong>{title}</strong><span>{category} {tags}</span></a></li>',
+      noResultsText: '<li><a href="#"><span>No results found.</span></a></li>',
+      limit: 8,
+      fuzzy: false,
+      tokenize: true
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-container')) {
+        document.getElementById('search-results').innerHTML = '';
+      }
+    });
+  </script>
 
 </body>
 </html>
