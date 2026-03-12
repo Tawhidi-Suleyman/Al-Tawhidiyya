@@ -11,3 +11,4 @@ collections:
     output: true
   refutations:
     output: true
+permalink: /:categories/:title/
