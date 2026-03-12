@@ -1,0 +1,13 @@
+title: At-Tawahidiyya
+description: La ilaha illa Allah. The Logical Restoration of Divine Oneness.
+theme: jekyll-theme-minimal
+remote_theme: pages-themes/minimal
+
+# This helps organize your entries
+collections:
+  foundations:
+    output: true
+  tafsir:
+    output: true
+  refutations:
+    output: true
