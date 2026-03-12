@@ -1,48 +1,63 @@
 title: "At-Tawahidiyya"
-description: "A philosophical school devoted to the study of divine unity, scriptural interpretation, and theological refinement."
-remote_theme: pages-themes/minimal@v0.2.0
+description: "A school of philosophical theology devoted to divine unity, scriptural coherence, and the logic of creation."
+author: "Suleyman al-Tawhidi"
 
 url: "https://tawhidi-suleyman.github.io"
 baseurl: "/Al-Tawhidiyya"
 
-# Markdown processor
+remote_theme: pages-themes/minimal@v0.2.0
 markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  auto_ids: true
 
 # Collections
 collections:
   foundations:
     output: true
-    permalink: /:collection/:name/
+    permalink: /foundations/:name/
   tafsir:
     output: true
-    permalink: /:collection/:name/
+    permalink: /tafsir/:name/
   refutations:
     output: true
-    permalink: /:collection/:name/
+    permalink: /refutations/:name/
 
-# Default front matter
+# Default layouts
 defaults:
   - scope:
       path: ""
-      type: "posts"
+      type: posts
     values:
-      layout: "post"
+      layout: post
   - scope:
       path: ""
-      type: "foundations"
+      type: foundations
     values:
-      layout: "page"
+      layout: page
   - scope:
       path: ""
-      type: "tafsir"
+      type: tafsir
     values:
-      layout: "page"
+      layout: page
   - scope:
       path: ""
-      type: "refutations"
+      type: refutations
     values:
-      layout: "page"
+      layout: page
+
+# Tag archive pages (Liquid-based, no plugin needed for GitHub Pages)
+# Tags are aggregated via Liquid in _layouts/tag.html and assets/tags/
 
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
