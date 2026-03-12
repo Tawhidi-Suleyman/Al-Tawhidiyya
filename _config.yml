@@ -1,18 +1,48 @@
-title: At-Tawahidiyya
-description: La ilaha illa Allah. The Logical Restoration of Divine Oneness.
-theme: jekyll-theme-minimal
-remote_theme: pages-themes/minimal
+title: "At-Tawahidiyya"
+description: "A philosophical school devoted to the study of divine unity, scriptural interpretation, and theological refinement."
+remote_theme: pages-themes/minimal@v0.2.0
 
-# IMPORTANT: Add these two lines
 url: "https://tawhidi-suleyman.github.io"
 baseurl: "/Al-Tawhidiyya"
 
-permalink: /:categories/:title/
+# Markdown processor
+markdown: kramdown
 
+# Collections
 collections:
   foundations:
     output: true
+    permalink: /:collection/:name/
   tafsir:
     output: true
+    permalink: /:collection/:name/
   refutations:
     output: true
+    permalink: /:collection/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "foundations"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "tafsir"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "refutations"
+    values:
+      layout: "page"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
