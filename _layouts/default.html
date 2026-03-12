@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}
+  </title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 }}" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+
+  {% seo %}
+  {% feed_meta %}
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR / NAVIGATION
+  ════════════════════════════════════════════ -->
+  <nav class="sidebar" role="navigation" aria-label="Primary navigation">
+
+    <div class="sidebar-header">
+      <a href="{{ '/' | relative_url }}" class="site-title-link">
+        <span class="site-glyph">ط</span>
+        <span class="site-title">At-Tawahidiyya</span>
+      </a>
+      <p class="site-tagline">{{ site.description }}</p>
+    </div>
+
+    <hr class="gold-rule" />
+
+    <div class="nav-section">
+      <span class="nav-label">The Pillars</span>
+      <ul>
+        <li><a href="{{ '/foundations/' | relative_url }}">Foundations</a></li>
+        {% for doc in site.foundations %}
+        <li class="nav-sub"><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-label">The Library</span>
+      <ul>
+        <li><a href="{{ '/tafsir/' | relative_url }}">Tafsir</a></li>
+        {% for doc in site.tafsir %}
+        <li class="nav-sub"><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-label">The Shield</span>
+      <ul>
+        <li><a href="{{ '/refutations/' | relative_url }}">Refutations</a></li>
+        {% for doc in site.refutations %}
+        <li class="nav-sub"><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <hr class="gold-rule" />
+
+    <!-- Tag Cloud (aggregated via Liquid) -->
+    <div class="nav-section">
+      <span class="nav-label">Topics</span>
+      <div class="tag-cloud-sidebar">
+        {% assign all_tags = "" | split: "" %}
+        {% for post in site.posts %}
+          {% assign all_tags = all_tags | concat: post.tags %}
+        {% endfor %}
+        {% for doc in site.foundations %}
+          {% assign all_tags = all_tags | concat: doc.tags %}
+        {% endfor %}
+        {% for doc in site.tafsir %}
+          {% assign all_tags = all_tags | concat: doc.tags %}
+        {% endfor %}
+        {% for doc in site.refutations %}
+          {% assign all_tags = all_tags | concat: doc.tags %}
+        {% endfor %}
+        {% assign all_tags = all_tags | uniq | sort %}
+        {% for tag in all_tags %}
+          <a href="{{ '/tags/' | append: tag | downcase | replace: ' ', '-' | relative_url }}" class="tag-pill">{{ tag }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="main-content" role="main">
+
+    <div class="content-wrapper">
+      {{ content }}
+    </div>
+
+    <footer class="page-footer">
+      <hr class="gold-rule" />
+      <p>
+        <span class="footer-glyph">بسم الله</span>
+        &nbsp;·&nbsp;
+        At-Tawahidiyya &copy; {{ 'now' | date: "%Y" }}
+        &nbsp;·&nbsp;
+        <a href="{{ '/' | relative_url }}">Return to the Index</a>
+      </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
