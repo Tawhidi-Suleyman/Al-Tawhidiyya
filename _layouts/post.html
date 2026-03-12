@@ -24,12 +24,11 @@ layout: default
     {{ content }}
   </div>
 
-  <!-- ═══════════════════════════
-       TAG METADATA BLOCK
-  ════════════════════════════ -->
+  <!-- ── TAG METADATA ── -->
   {% if page.tags and page.tags.size > 0 %}
   <footer class="post-meta-footer">
     <hr class="gold-rule" />
+
     <div class="post-tags-block">
       <span class="tags-label">Topics discussed in this entry:</span>
       <div class="tag-list">
@@ -38,29 +37,57 @@ layout: default
         {% endfor %}
       </div>
     </div>
+
+    {% assign current_tags = page.tags %}
+    {% assign related = "" | split: "" %}
+    {% for post in site.posts %}
+      {% if post.url != page.url %}
+        {% for t in post.tags %}
+          {% if current_tags contains t %}
+            {% assign related = related | push: post %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% if related.size > 0 %}
     <div class="post-related">
-      {% assign current_tags = page.tags %}
-      {% assign related = "" | split: "" %}
-      {% for post in site.posts %}
-        {% if post.url != page.url %}
-          {% for t in post.tags %}
-            {% if current_tags contains t %}
-              {% assign related = related | push: post %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
-      {% if related.size > 0 %}
       <span class="tags-label">Related writings:</span>
       <ul class="related-list">
         {% for rel in related limit:4 %}
           <li><a href="{{ rel.url | relative_url }}">{{ rel.title }}</a></li>
         {% endfor %}
       </ul>
-      {% endif %}
     </div>
+    {% endif %}
+
   </footer>
   {% endif %}
 
+  <!-- ════════════════════════════════════════════
+       GISCUS COMMENTS
+  ═════════════════════════════════════════════ -->
+  <section class="comments-section">
+    <hr class="gold-rule" />
+    <span class="comments-heading">Discussion</span>
+    <div class="giscus"></div>
+  </section>
+
 </article>
+
+<script src="https://giscus.app/client.js"
+        data-repo="Tawhidi-Suleyman/Al-Tawhidiyya"
+        data-repo-id="R_kgDORkubMg"
+        data-category="General"
+        data-category-id="DIC_kwDORkubMs4C4N__"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
