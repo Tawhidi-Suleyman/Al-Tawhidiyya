@@ -1,18 +1,9 @@
----
-layout: default
----
-
-# The Tawahidi Forge
-
-## 🛡️ Active Refutations
+## Active Refutations
 {% for post in site.categories.refutation %}
-### [{{ post.title }}]({{ post.url }})
-*Solving logical knots in modern discourse.*
+### [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
----
-
-## 📖 Latest Tafsir
-{% for post in site.categories.tafsir %}
-### [{{ post.title }}]({{ post.url }})
+## Foundations
+{% for page in site.foundations %}
+### [{{ page.title }}]({{ page.url | relative_url }})
 {% endfor %}
